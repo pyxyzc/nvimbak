@@ -35,6 +35,12 @@ case $OS in
 esac
 
 # ==================================================================
+# 文件路径全局变量设置
+# ==================================================================
+
+PROJECT_DIR="$(dirname "$(dirname "$(realpath "$0")")")"
+
+# ==================================================================
 # 根据ARCH选择nvim stable version下载地址
 # ==================================================================
 
@@ -54,14 +60,14 @@ case "$ARCH" in
 esac
 
 # curl下载nvim
-echo "Downloading Neovim nightly for $ARCH ..."
+echo ">>> Downloading Neovim nightly for $ARCH ..."
 curl -LO "$URL"
 
-echo "Extracting ..."
+echo ">>> Extracting ..."
 tar -zxvf "$DIR.tar.gz"
 
 # 安装nvim
-echo "Installing to /opt/nvim ..."
+echo ">>> Installing to /opt/nvim ..."
 $SUDO mkdir -p /opt/nvim
 $SUDO rsync -a "$DIR"/ /opt/nvim/
 $SUDO ln -sf /opt/nvim/bin/nvim /usr/local/bin/nvim
@@ -81,7 +87,7 @@ mkdir -p ~/.config
 # 将新版本nvim配置复制到config下
 # ==================================================================
 
-cp -r "$(dirname "$(dirname "$(realpath "$0")")")" ~/.config/nvim
+cp -r "$PROJECT_DIR" ~/.config/nvim
 
 echo "nvim config copied to ~/.config/nvim"
 
@@ -121,12 +127,16 @@ case $OS in
     openEuler)
         pip install ripgrep
         pip install fd
+	;;
     *) echo "Unsupported Operating System: $OS" >&2; exit 1 ;;
 esac
 
-echo ">>> Installation complete - versions:"
+# ==================================================================
+# 删除项目文件夹下的下载文件
+# =================================================================
 
-
+rm -f "$PROJECT_DIR/nvim-linux-x86_64.tar.gz"
+rm -rf "$PROJECT_DIR/nvim-linux-x86_64"
 
 
 
