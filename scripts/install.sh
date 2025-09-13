@@ -60,7 +60,7 @@ case "$ARCH" in
 esac
 
 # curl下载nvim
-echo ">>> Downloading Neovim nightly for $ARCH ..."
+echo ">>> Downloading Neovim stable for $ARCH ..."
 curl -LO "$URL"
 
 echo ">>> Extracting ..."
@@ -69,7 +69,20 @@ tar -zxvf "$DIR.tar.gz"
 # 安装nvim
 echo ">>> Installing to /opt/nvim ..."
 $SUDO mkdir -p /opt/nvim
-$SUDO rsync -a "$DIR"/ /opt/nvim/
+
+case $OS in
+    centos)
+	$SUDO rsync -a "$DIR"/ /opt/nvim/
+        ;;
+    ubuntu)
+	$SUDO rsync -a "$DIR"/ /opt/nvim/
+	;;
+    openEuler)
+	$SUDO cp -a "$DIR"/. /opt/nvim/
+        ;;
+    *) echo "Unsupported Operating System: $OS" >&2; exit 1 ;;
+esac
+
 $SUDO ln -sf /opt/nvim/bin/nvim /usr/local/bin/nvim
 
 echo "Done!"
@@ -135,8 +148,17 @@ esac
 # 删除项目文件夹下的下载文件
 # =================================================================
 
-rm -f "$PROJECT_DIR/nvim-linux-x86_64.tar.gz"
-rm -rf "$PROJECT_DIR/nvim-linux-x86_64"
+case "$ARCH" in
+    aarch64|arm64)
+	rm -f nvim-linux-arm64.tar.gz
+	rm -rf nvim-linux-arm64
+        ;;
+    x86_64)
+	rm -f nvim-linux-x86_64.tar.gz 
+	rm -rf nvim-linux-x86_64
+        ;;
+    *) echo "Unsupported architecture: $ARCH" >&2; exit 1 ;;
+esac
 
 
 
