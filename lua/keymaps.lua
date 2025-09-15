@@ -64,13 +64,8 @@ vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("n", "<C-p>", ":Telescope find_files<CR>", opts)
 vim.keymap.set("n", "<C-f>", ":Telescope live_grep<CR>", opts)
 
-
-
-
-
 -- nvim-tree
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-
 
 -- ------------------------------------------------------------------
 -- 插件快捷键
@@ -81,8 +76,8 @@ local pluginKeys = {}
 -- Telescope
 
 pluginKeys.telescopeList = {
-    i = {
-        -- 上下移动
+	i = {
+		-- 上下移动
 		["<C-j>"] = "move_selection_next",
 		["<C-k>"] = "move_selection_previous",
 		["<Down>"] = "move_selection_next",
@@ -95,7 +90,7 @@ pluginKeys.telescopeList = {
 		-- 预览窗口上下滚动
 		["<C-u>"] = "preview_scrolling_up",
 		["<C-d>"] = "preview_scrolling_down",
-    },
+	},
 }
 
 -- nvim-tree
@@ -191,4 +186,3 @@ pluginKeys.blink = function(cmp)
 end
 
 return pluginKeys
-
