@@ -1,26 +1,21 @@
--- Hint: use `:h <option>` to figure out the meaning if needed
-
------------------------------------------------------------------
+-- --------------------------------------------------
 -- common设置
------------------------------------------------------------------
-
--- 复制粘贴相关设置
-vim.opt.clipboard = "unnamedplus" -- use system clipboard
+-- --------------------------------------------------
 
 -- 自动补全不被自动选中
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
--- 允许在nvim中使用鼠标
-vim.opt.mouse = "a" -- allow the mouse to be used in Nvim
+-- 允许在 nvim 中使用鼠标
+vim.opt.mouse = "a"
 
--- scroll相关设置
-vim.opt.scrolloff = 10 -- no less than 10 lines even if you keep scrolling down
+-- scroll 相关设置
+vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 10
 
 -- 禁止创建备份文件
 vim.opt.backup = false
 vim.opt.writebackup = false
-vim.opt.swapfile = false -- no .swp file
+vim.opt.swapfile = false
 
 -- 当文件被外部程序修改时，自动加载
 vim.opt.autoread = true
@@ -28,9 +23,9 @@ vim.opt.autoread = true
 -- 过滤 vim.deprecated 信息
 vim.deprecate = function() end
 
------------------------------------------------------------------
+-- --------------------------------------------------
 -- 缩进相关设置
------------------------------------------------------------------
+-- --------------------------------------------------
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "py", "lua" },
