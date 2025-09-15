@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		keymap.set("n", "gd", lsp.buf.definition, bufopts)
 		keymap.set("n", "<space>rn", lsp.buf.rename, bufopts)
 		keymap.set("n", "K", lsp.buf.hover, bufopts)
-		keymap.set("n", "<space>f", function()
+		keymap.set("n", "<leader>f", function()
 			require("conform").format({ async = true, lsp_fallback = true })
 		end, bufopts)
 	end,
@@ -32,4 +32,4 @@ vim.api.nvim_create_autocmd("CursorHold", {
 	end,
 })
 
-vim.lsp.enable({ "clangd", "clojure_lsp", "lua_ls", "ty", "ocamllsp" })
+vim.lsp.enable({ "clangd", "lua_ls", "pyright" })
