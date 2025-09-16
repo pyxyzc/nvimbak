@@ -1,21 +1,20 @@
 function my_paste(reg)
 	return function(lines)
-		-- 返回 "" 寄存器的内容，用来作为 p 操作符的粘贴物
+		-- Return the contents of the "" register, used as the paste source for the 'p' operator
 		local content = vim.fn.getreg('"')
 		return vim.split(content, "\n")
 	end
 end
 
--- 只需要开启复制功能，不需要粘贴功能
--- 粘贴直接由 insert 模式下 Ctrl+V 实现
+-- Only enable copy functionality, paste will be handled by Ctrl+V in insert mode
 
--- 通过环境变量检查是否是本地环境
+-- Check environment variable to detect if it's a local environment
 if os.getenv("SSH_TTY") == nil then
-	-- 当前环境为本地环境，包括 wsl
+	-- Local environment (including WSL)
 	vim.opt.clipboard:append("unnamedplus")
 else
 	vim.opt.clipboard:append("unnamedplus")
-	-- 使用 OSC 52 协议传输剪贴板
+	-- Use OSC 52 protocol for clipboard transfer
 	vim.g.clipboard = {
 		name = "OSC 52",
 		copy = {
@@ -23,9 +22,10 @@ else
 			["*"] = require("vim.ui.clipboard.osc52").copy("*"),
 		},
 		paste = {
-            -- 自定义 paste，规避 OSC 52 读取本地剪贴板的内容
-            -- 直接返回 "" 寄存器的内容
-			-- 小括号里面的内容可能是毫无意义的，但是保持原样可能看起来更好一点
+			-- Custom paste: avoid reading local clipboard via OSC 52
+			-- Always return the contents of the "" register
+			-- The parameter inside parentheses may be meaningless, 
+			-- but keeping it as-is makes it look more consistent
 			["+"] = my_paste("+"),
 			["*"] = my_paste("*"),
 		},

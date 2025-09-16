@@ -1,53 +1,32 @@
--- Define common options
-
+-- Leader keys
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-local map = vim.api.nvim_set_keymap
-
+-- Default options for mappings
 local opts = {
 	noremap = true, -- non-recursive
 	silent = true, -- do not show message
 }
 
------------------
--- Normal mode --
------------------
+-- --------------------------------------------------
+-- Normal Mode
+-- --------------------------------------------------
 
--- 实现窗口之间跳转
+-- Window navigation with Alt + h/j/k/l
 vim.keymap.set("n", "<A-h>", "<C-w>h", opts)
 vim.keymap.set("n", "<A-j>", "<C-w>j", opts)
 vim.keymap.set("n", "<A-k>", "<C-w>k", opts)
 vim.keymap.set("n", "<A-l>", "<C-w>l", opts)
 
--- Resize with arrows
--- delta: 2 lines
+-- Window resizing with arrow keys (delta = 2 lines)
 vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", opts)
 vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", opts)
 vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
--- For conjure
-vim.g.maplocalleader = ","
-
--- For flash.nvim
--- 1. Press `s` and type jump label
--- 2. Press `S` and type jump label for specefic selection based on tree-sitter.
---    You can also use `;` or `,` to increase/decrease the selection
-
--- For nvim-surround
---     Old text                    Command         New text
--- --------------------------------------------------------------------------------
---     surr*ound_words             ysiw)           (surround_words)
---     *make strings               ys$"            "make strings"
---     [delete ar*ound me!]        ds]             delete around me!
---     remove <b>HTML t*ags</b>    dst             remove HTML tags
---     'change quot*es'            cs'"            "change quotes"
---     <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
-
------------------
--- Visual mode --
------------------
+-- --------------------------------------------------
+-- Visual Mode
+-- --------------------------------------------------
 
 -- Hint: start visual mode with the same area as the previous area and the same mode
 vim.keymap.set("v", "<", "<gv", opts)

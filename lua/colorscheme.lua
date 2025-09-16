@@ -1,8 +1,11 @@
--- Define your colorscheme here.
+-- Set the preferred colorscheme
 local colorscheme = "tokyonight"
 
-local is_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-if not is_ok then
+-- Try to apply the colorscheme safely
+local status, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
+
+if not status then
+	-- If the colorscheme is not found, show a notification
 	vim.notify("colorscheme " .. colorscheme .. " not found!")
 	return
 end
