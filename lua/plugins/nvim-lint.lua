@@ -6,7 +6,6 @@ return {
 		-- NOTE: Install formatters with Mason
 		lint.linters_by_ft = {
 			python = { "mypy" },
-            lua = { "selene" },
         }
 
         -- When to trigger lint? I bind it to some events as follows:
