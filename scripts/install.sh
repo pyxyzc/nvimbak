@@ -69,20 +69,7 @@ tar -zxvf "$DIR.tar.gz"
 # 安装nvim
 echo ">>> Installing to /opt/nvim ..."
 $SUDO mkdir -p /opt/nvim
-
-case $OS in
-    centos)
-	$SUDO rsync -a "$DIR"/ /opt/nvim/
-        ;;
-    ubuntu)
-	$SUDO rsync -a "$DIR"/ /opt/nvim/
-	;;
-    openEuler)
-	$SUDO cp -a "$DIR"/. /opt/nvim/
-        ;;
-    *) echo "Unsupported Operating System: $OS" >&2; exit 1 ;;
-esac
-
+$SUDO cp -a "$DIR"/. /opt/nvim/
 $SUDO ln -sf /opt/nvim/bin/nvim /usr/local/bin/nvim
 
 echo "Done!"
