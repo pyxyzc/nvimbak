@@ -1,6 +1,6 @@
 return {
-	cmd = { "pyright-langserver", "--stdio" }, -- 启动命令
-	filetypes = { "python" }, -- 只对 Python 文件生效
+	cmd = { "pyright-langserver", "--stdio" },
+	filetypes = { "python" },
 	root_markers = {
 		"pyproject.toml",
 		"setup.py",
@@ -9,5 +9,15 @@ return {
 		"tox.ini",
 		".python-version",
 		".git",
-    },
+	},
+	settings = {
+		python = {
+			analysis = {
+				autoSearchPaths = true,
+				diagnosticMode = "openFilesOnly",
+				useLibraryCodeForTypes = true,
+				typeCheckingMode = "basic",
+			},
+		},
+	},
 }
