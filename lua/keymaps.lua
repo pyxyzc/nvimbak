@@ -72,6 +72,23 @@ pluginKeys.telescopeList = {
 	},
 }
 
+-- Bufferline
+
+-- Switch
+vim.keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Prev buffer" })
+for i = 1, 9 do
+  vim.keymap.set("n", string.format("<leader>%d", i),
+    string.format("<cmd>BufferLineGoToBuffer %d<CR>", i),
+    { desc = "Go to buffer " .. i }
+  )
+end
+
+vim.keymap.set("n", "<leader>bp", "<cmd>BufferLinePick<CR>", { desc = "Pick buffer" })
+
+-- Close
+vim.keymap.set("n", "<leader>bc", "<cmd>bd<CR>", { desc = "Close current buffer" })
+
 -- nvim-tree
 
 pluginKeys.nvimTreeList = {
