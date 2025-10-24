@@ -14,6 +14,8 @@ return {
 
         local Terminal = require("toggleterm.terminal").Terminal
         local terms = {}
+        local default_height = math.floor(vim.o.lines * 0.35)
+        local maximized = false
 
         -- Check if the terminal window is currently open (visible)
         local function is_open(term)
@@ -80,6 +82,34 @@ return {
             vim.notify(msg, vim.log.levels.INFO, { title = "ToggleTerm Info" })
         end
 
+        local function maximize_all_terms()
+            local wins = vim.api.nvim_list_wins()
+            local ui_height = vim.o.lines - vim.o.cmdheight - 2
+            for _, win in ipairs(wins) do
+                local buf = vim.api.nvim_win_get_buf(win)
+                local buf_name = vim.api.nvim_buf_get_name(buf)
+                if buf_name:match("term://") then
+                    vim.api.nvim_win_set_height(win, ui_height)
+                end
+            end
+            maximized = true
+            vim.notify("All terminal windows maximized", vim.log.levels.INFO, { title = "ToggleTerm" })
+        end
+
+        local function restore_all_terms()
+            local wins = vim.api.nvim_list_wins()
+            for _, win in ipairs(wins) do
+                local buf = vim.api.nvim_win_get_buf(win)
+                local buf_name = vim.api.nvim_buf_get_name(buf)
+                if buf_name:match("term://") then
+                    vim.api.nvim_win_set_height(win, default_height)
+                end
+            end
+            maximized = false
+            vim.notify("All terminal windows restored to default height", vim.log.levels.INFO, { title = "ToggleTerm" })
+        end
+
+
         -- Map <leader>1t through <leader>9t to toggle terminals 1-9
         for i = 1, 9 do
             vim.keymap.set("n", string.format("<leader>%dt", i), function()
@@ -95,6 +125,12 @@ return {
 
         -- Map <leader>ti to show current terminal IDs popup
         vim.keymap.set("n", "<leader>ti", show_terminals_info, { desc = "Show terminal IDs info" })
+
+        -- 新增：<leader>tm 放大所有终端窗口
+        vim.keymap.set("n", "<leader>tm", maximize_all_terms, { desc = "Maximize all terminal windows" })
+
+        -- 新增：<leader>tr 还原所有终端窗口高度
+        vim.keymap.set("n", "<leader>tr", restore_all_terms, { desc = "Restore terminal window heights" })
 
         -- Map <Esc> in terminal mode to exit to normal mode
         vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
