@@ -109,6 +109,25 @@ return {
             vim.notify("All terminal windows restored to default height", vim.log.levels.INFO, { title = "ToggleTerm" })
         end
 
+        local function hide_all_terms()
+            local hidden_count = 0
+            for _, term in ipairs(terms) do
+                if term and is_open(term) then
+                    term:close()
+                    hidden_count = hidden_count + 1
+                end
+            end
+
+            if hidden_count > 0 then
+                vim.notify("All terminal windows hidden", vim.log.levels.INFO, { title = "ToggleTerm" })
+            else
+                vim.notify("No terminals are currently open", vim.log.levels.INFO, { title = "ToggleTerm" })
+            end
+        end
+
+        -- 新增快捷键：<leader>th 隐藏所有终端
+        vim.keymap.set("n", "<leader>th", hide_all_terms, { desc = "Hide all terminal windows" })
+
 
         -- Map <leader>1t through <leader>9t to toggle terminals 1-9
         for i = 1, 9 do
