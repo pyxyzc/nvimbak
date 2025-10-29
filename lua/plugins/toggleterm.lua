@@ -9,6 +9,14 @@ return {
         shading_factor = 2,
     },
     config = function(_, opts)
+        -- Showet terminal backed if Mac
+        local uname = vim.loop.os_uname().system
+        if uname == "Darwin" or vim.fn.has("macunix") == 1 then
+          opts.shell = "/bin/zsh"
+        else
+          opts.shell = "/bin/bash"
+        end
+        
         local toggleterm = require("toggleterm")
         toggleterm.setup(opts)
 
