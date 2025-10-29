@@ -159,7 +159,5 @@ return {
         -- 新增：<leader>tr 还原所有终端窗口高度
         vim.keymap.set("n", "<leader>tr", restore_all_terms, { desc = "Restore terminal window heights" })
 
-        -- Map <Esc> in terminal mode to exit to normal mode
-        vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
     end,
 }
