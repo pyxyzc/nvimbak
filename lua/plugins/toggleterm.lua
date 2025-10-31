@@ -9,14 +9,16 @@ return {
         shading_factor = 2,
     },
     config = function(_, opts)
-        -- Showet terminal backed if Mac
+        -- If MacOS, use zsh
         local uname = vim.loop.os_uname().system
         if uname == "Darwin" or vim.fn.has("macunix") == 1 then
-          opts.shell = "/bin/zsh"
+            opts.shell = "/bin/zsh"
+        elseif uname == "Windows_NT" or vim.fn.has("win32") == 1 then
+            opts.shell = "powershell.exe"
         else
-          opts.shell = "/bin/bash"
+            opts.shell = "/bin/bash"
         end
-        
+
         local toggleterm = require("toggleterm")
         toggleterm.setup(opts)
 
