@@ -142,7 +142,7 @@ local pluginKeys = {}
 
 pluginKeys.toggletermList = {
     n = {
-        ["<leader>t"]  = { toggle_last_hidden_or_new, "Toggle last hidden or create new terminal" },
+        ["<leader>tt"]  = { toggle_last_hidden_or_new, "Toggle last hidden or create new terminal" },
         ["<leader>tk"] = { kill_all_terms, "Kill all terminals" },
         ["<leader>ti"] = { show_terminals_info, "Show terminal IDs" },
         ["<leader>tm"] = { maximize_all_terms, "Maximize all terminal windows" },
@@ -170,7 +170,7 @@ pluginKeys.toggletermList = {
 
 -- Dynamically generate <leader>1t to <leader>9t keymaps
 for i = 1, 9 do
-    pluginKeys.toggletermList.n[string.format("<leader>%dt", i)] = {
+    pluginKeys.toggletermList.n[string.format("<leader>t%d", i)] = {
         function() toggle_term(i) end,
         "Toggle terminal " .. i,
     }
