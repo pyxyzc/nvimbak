@@ -186,6 +186,47 @@ for mode, mappings in pairs(pluginKeys.toggletermList) do
     end
 end
 
+vim.keymap.set("n", "<leader>ht", function()
+  local Terminal = require("toggleterm.terminal").Terminal
+  if not _G.__htop_term then
+    _G.__htop_term = Terminal:new({
+      cmd = "btop",
+      direction = "float",
+      close_on_exit = true,
+      hidden = true,
+    })
+  end
+  _G.__htop_term:toggle()
+end, { noremap = true, silent = true, desc = "Open btop (float)" })
+
+vim.keymap.set("n", "<leader>nt", function()
+  local Terminal = require("toggleterm.terminal").Terminal
+  if not _G.__nvtop_term then
+    _G.__nvtop_term = Terminal:new({
+      cmd = "nvtop",
+      direction = "float",
+      close_on_exit = true,
+      hidden = true,
+    })
+  end
+  _G.__nvtop_term:toggle()
+end, { noremap = true, silent = true, desc = "Open nvtop (float)" })
+
+vim.keymap.set("n", "<leader>ct", function()
+  local Terminal = require("toggleterm.terminal").Terminal
+  if not _G.__codextop_term then
+    _G.__codextop_term = Terminal:new({
+      cmd = "codex",
+      direction = "float",
+      close_on_exit = true,
+      hidden = true,
+    })
+  end
+  _G.__codextop_term:toggle()
+end, { noremap = true, silent = true, desc = "Open nvtop (float)" })
+
+
+
 -- Apply terminal-mode mappings when a terminal opens
 vim.api.nvim_create_autocmd("TermOpen", {
     pattern = "term://*",
