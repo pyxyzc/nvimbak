@@ -8,6 +8,7 @@ local opts = {
 	silent = true, -- do not show message
 }
 
+
 -- --------------------------------------------------
 -- Normal Mode
 -- --------------------------------------------------
@@ -87,7 +88,7 @@ end
 vim.keymap.set("n", "<leader>bp", "<cmd>BufferLinePick<CR>", { desc = "Pick buffer" })
 
 -- Close
-vim.keymap.set("n", "<leader>bc", "<cmd>bd<CR>", { desc = "Close current buffer" })
+vim.keymap.set("n", "<leader>bc", "<cmd>bd#<CR>", { desc = "Close current buffer" })
 
 -- nvim-tree
 
