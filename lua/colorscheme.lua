@@ -1,5 +1,5 @@
 -- Set the preferred colorscheme
-local colorscheme = "tokyonight"
+local colorscheme = "bamboo"
 
 -- Try to apply the colorscheme safely
 local status, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
